@@ -1,19 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Post from './Post';
-
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { getPosts } from '../actions/posts';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
-const data = [
-  { posted: true, platform: 'Facebook', datePosted: new Date().toLocaleDateString(), likes: 8 },
-  { posted: false, platform: 'Twitter', datePosted: new Date().toLocaleDateString(), likes: 6 },
-  { posted: false, platform: 'Instragram', datePosted: new Date().toLocaleDateString(), likes: 3 },
-  { posted: true, platform: 'Twitter', datePosted: new Date().toLocaleDateString(), likes: 1 },
-  { posted: false, platform: 'Facebook', datePosted: new Date().toLocaleDateString(), likes: 10 }
-];
 
 const headerRows = [
   { id: 'platform', label: 'Platform' },
@@ -21,26 +15,45 @@ const headerRows = [
   { id: 'likes', label: 'Likes' }
 ];
 
-const Posts = () => {
+const Posts = ({ posts: { loading, postItems }, getPosts }) => {
+  useEffect(() => {
+    getPosts();
+  }, [getPosts]);
+
   return (
     <div>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Completed</TableCell>
-            {headerRows.map(header => (
-              <TableCell id={header.id}>{header.label}</TableCell>
+      {loading ? (
+        <span>Loading</span>
+      ) : (
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Completed</TableCell>
+              {headerRows.map(header => (
+                <TableCell key={header.id}>{header.label}</TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {postItems.map(post => (
+              <Post post={post} key={post.id}></Post>
             ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data.map(row => (
-            <Post data={row}></Post>
-          ))}
-        </TableBody>
-      </Table>
+          </TableBody>
+        </Table>
+      )}
     </div>
   );
 };
 
-export default Posts;
+Posts.propTypes = {
+  posts: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  posts: state.posts
+});
+
+export default connect(
+  mapStateToProps,
+  { getPosts }
+)(Posts);

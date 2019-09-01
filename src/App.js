@@ -1,13 +1,18 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Fragment } from 'react';
 import './App.css';
 import Posts from './components/Posts';
+import { Provider } from 'react-redux';
+import store from './store';
+import Alert from './components/layout/Alert';
 
 function App() {
   return (
-    <div className='App'>
-      <Posts></Posts>
-    </div>
+    <Provider store={store}>
+      <Fragment>
+        <Alert />
+        <Posts></Posts>
+      </Fragment>
+    </Provider>
   );
 }
 
