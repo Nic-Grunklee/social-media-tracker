@@ -1,0 +1,28 @@
+.alert {
+  padding: 0.8rem;
+  margin: 1rem 0;
+  opacity: 0.9;
+  background: var(--light-color);
+  color: #333;
+  border-radius: 1rem;
+}
+
+.posts-table {
+  padding-top: 50px;
+  min-width: 650px;
+
+  .posts-table-header {
+    background: #5b4c73;
+
+    th {
+      color: white;
+    }
+  }
+}
+
+.button {
+}
+
+.green {
+  color: #37de53;
+}

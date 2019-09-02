@@ -8,6 +8,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import { Paper, Box } from '@material-ui/core';
+import { GreenButton } from './layout/ColorOverrides';
+import { Add } from '@material-ui/icons';
 
 const headerRows = [
   { id: 'platform', label: 'Platform' },
@@ -22,24 +25,31 @@ const Posts = ({ posts: { loading, postItems }, getPosts }) => {
 
   return (
     <div>
+      <GreenButton variant='extended' size='medium'>
+        <Add /> {''}Add Post
+      </GreenButton>
       {loading ? (
         <span>Loading</span>
       ) : (
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell>Completed</TableCell>
-              {headerRows.map(header => (
-                <TableCell key={header.id}>{header.label}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {postItems.map(post => (
-              <Post post={post} key={post.id}></Post>
-            ))}
-          </TableBody>
-        </Table>
+        <Box pt={5}>
+          <Paper>
+            <Table className='posts-table'>
+              <TableHead className='posts-table-header'>
+                <TableRow>
+                  <TableCell>Completed</TableCell>
+                  {headerRows.map(header => (
+                    <TableCell key={header.id}>{header.label}</TableCell>
+                  ))}
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {postItems.map(post => (
+                  <Post post={post} key={post.id}></Post>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
+        </Box>
       )}
     </div>
   );
