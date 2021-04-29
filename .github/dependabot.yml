@@ -1,0 +1,29 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 99
+  assignees:
+  - Nic-Grunklee
+  ignore:
+  - dependency-name: y18n
+    versions:
+    - 4.0.1
+    - 4.0.2
+  - dependency-name: react-redux
+    versions:
+    - 7.2.3
+  - dependency-name: react-scripts
+    versions:
+    - 4.0.2
+  - dependency-name: "@material-ui/core"
+    versions:
+    - 4.11.3
+  - dependency-name: "@material-ui/styles"
+    versions:
+    - 4.11.3
+  - dependency-name: node-notifier
+    versions:
+    - 8.0.1
